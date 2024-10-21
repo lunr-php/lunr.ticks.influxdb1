@@ -1,0 +1,139 @@
+<?php
+
+/**
+ * This file contains the EventLogger class.
+ *
+ * SPDX-FileCopyrightText: Copyright 2024 Move Agency Group B.V., Zwolle, The Netherlands
+ * SPDX-License-Identifier: MIT
+ */
+
+namespace Lunr\Ticks\InfluxDB1\EventLogging;
+
+use InfluxDB\Client;
+use InfluxDB\Exception as InfluxDBException;
+use InfluxDB\Point;
+use Lunr\Ticks\EventLogging\EventLoggerInterface;
+use Lunr\Ticks\Precision;
+use Psr\Log\LoggerInterface;
+
+/**
+ * Class for logging events.
+ */
+class EventLogger implements EventLoggerInterface
+{
+
+    /**
+     * Instance of the InfluxDB Client class
+     * @var Client
+     */
+    protected readonly Client $client;
+
+    /**
+     * Instance of a PSR-3 logger.
+     * @var LoggerInterface
+     */
+    protected readonly LoggerInterface $logger;
+
+    /**
+     * Name of the database
+     * @var string
+     */
+    protected string $database;
+
+    /**
+     * Default tags to use for all events.
+     * @var array<string,string>
+     */
+    protected readonly array $defaultTags;
+
+    /**
+     * Constructor.
+     *
+     * @param Client               $client       Instance of the InfluxDB Client class
+     * @param LoggerInterface      $logger       Instance of a PSR-3 Logger
+     * @param array<string,string> $default_tags Default tags to use for all events
+     */
+    public function __construct(Client $client, LoggerInterface $logger, array $default_tags = [])
+    {
+        $this->client      = $client;
+        $this->logger      = $logger;
+        $this->defaultTags = $default_tags;
+        $this->database    = '';
+    }
+
+    /**
+     * Destructor.
+     */
+    public function __destruct()
+    {
+        unset($this->database);
+    }
+
+    /**
+     * Get an instance of a new event
+     *
+     * @param string      $name            Event name
+     * @param string|null $retentionPolicy Retention policy for the event
+     *
+     * @return Event Instance of a new Event
+     */
+    public function new_event(string $name, ?string $retentionPolicy = NULL): Event
+    {
+        return new Event(
+            $this,
+            new Point(
+                measurement: $name,
+                tags: $this->defaultTags,
+            ),
+            $retentionPolicy,
+        );
+    }
+
+    /**
+     * Set a database for the new event.
+     *
+     * @param string $database Database name
+     *
+     * @return void
+     */
+    public function set_database(string $database): void
+    {
+        $this->database = $database;
+    }
+
+    /**
+     * Log a single event.
+     *
+     * @param Point       $event           Event to log
+     * @param Precision   $precision       Timestamp precision to use for the event
+     * @param string|null $retentionPolicy Retention policy for the event
+     *
+     * @return void
+     */
+    public function record(Point $event, Precision $precision, ?string $retentionPolicy = NULL): void
+    {
+        $client_precision = $this->client->getPrecision();
+
+        $influxdb_precision = match ($precision)
+        {
+            Precision::Hours => $client_precision::PRECISION_HOURS,
+            Precision::Minutes => $client_precision::PRECISION_MINUTES,
+            Precision::Seconds => $client_precision::PRECISION_SECONDS,
+            Precision::MilliSeconds => $client_precision::PRECISION_MILLISECONDS,
+            Precision::MicroSeconds => $client_precision::PRECISION_MICROSECONDS,
+            Precision::NanoSeconds => $client_precision::PRECISION_NANOSECONDS,
+        };
+
+        try
+        {
+            $this->client->selectDB($this->database)->writePoints([ $event ], $influxdb_precision, $retentionPolicy);
+        }
+        catch (InfluxDBException $e)
+        {
+            $this->logger->warning('Logging to InfluxDB failed: {error}', [ 'error' => $e->getMessage() ]);
+        }
+    }
+
+}
+
+?>
