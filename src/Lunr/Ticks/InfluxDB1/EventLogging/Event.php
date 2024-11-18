@@ -85,14 +85,14 @@ class Event implements EventInterface
     /**
      * Set trace ID the event belongs to.
      *
-     * @param string $trace_id Trace ID
+     * @param string $traceID Trace ID
      *
      * @return void
      */
-    public function set_trace_id(string $trace_id): void
+    public function set_trace_id(string $traceID): void
     {
         // InfluxDB 1.x doesn't do well with UUID tag values, so we store this as a field
-        $this->point->addFields([ 'traceID' => $trace_id ]);
+        $this->point->addFields([ 'traceID' => $traceID ]);
     }
 
     /**
@@ -108,14 +108,14 @@ class Event implements EventInterface
     /**
      * Set span ID the event belongs to.
      *
-     * @param string $span_id Span ID
+     * @param string $spanID Span ID
      *
      * @return void
      */
-    public function set_span_id(string $span_id): void
+    public function set_span_id(string $spanID): void
     {
         // InfluxDB 1.x doesn't do well with UUID tag values, so we store this as a field
-        $this->point->addFields([ 'spanID' => $span_id ]);
+        $this->point->addFields([ 'spanID' => $spanID ]);
     }
 
     /**
