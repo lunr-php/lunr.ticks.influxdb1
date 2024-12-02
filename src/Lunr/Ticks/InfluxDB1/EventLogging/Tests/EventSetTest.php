@@ -82,6 +82,34 @@ class EventSetTest extends EventTest
     }
 
     /**
+     * Test that set_parent_span_id() sets the Span ID of the parent.
+     *
+     * @covers Lunr\Ticks\InfluxDB1\EventLogging\Event::set_parent_span_id
+     */
+    public function testSetParentSpanId(): void
+    {
+        $this->point->expects($this->once())
+                    ->method('addFields')
+                    ->with([ 'parentSpanID' => '4e122973-b870-471a-a00e-6a2778244738' ]);
+
+        $this->class->set_parent_span_id('4e122973-b870-471a-a00e-6a2778244738');
+    }
+
+    /**
+     * Test that set_uuid_value() sets a UUID value.
+     *
+     * @covers Lunr\Ticks\InfluxDB1\EventLogging\Event::set_uuid_value
+     */
+    public function testSetUuidValue(): void
+    {
+        $this->point->expects($this->once())
+                    ->method('addFields')
+                    ->with([ 'contentID' => '4e122973-b870-471a-a00e-6a2778244738' ]);
+
+        $this->class->set_uuid_value('contentID', '4e122973-b870-471a-a00e-6a2778244738');
+    }
+
+    /**
      * Test that set_tags() sets the event tags.
      *
      * @covers Lunr\Ticks\InfluxDB1\EventLogging\Event::set_tags

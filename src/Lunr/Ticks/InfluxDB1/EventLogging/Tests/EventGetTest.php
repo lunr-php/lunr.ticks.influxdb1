@@ -80,6 +80,28 @@ class EventGetTest extends EventTest
     }
 
     /**
+     * Test that get_parent_span_id() gets the Span ID of the parent.
+     *
+     * @covers Lunr\Ticks\InfluxDB1\EventLogging\Event::get_parent_span_id
+     */
+    public function testGetParentSpanId(): void
+    {
+        $expected = '4e122973-b870-471a-a00e-6a2778244738';
+
+        $this->point->expects($this->once())
+                    ->method('getFields')
+                    ->willReturn([
+                        'foo'          => 'bar',
+                        'parentSpanID' => $expected,
+                        'baz'          => 100,
+                    ]);
+
+        $value = $this->class->get_parent_span_id();
+
+        $this->assertSame($expected, $value);
+    }
+
+    /**
      * Test that get_tags() gets the event tags.
      *
      * @covers Lunr\Ticks\InfluxDB1\EventLogging\Event::get_tags

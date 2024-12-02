@@ -129,6 +129,41 @@ class Event implements EventInterface
     }
 
     /**
+     * Set span ID of the parent the event belongs to.
+     *
+     * @param string $spanID Span ID
+     *
+     * @return void
+     */
+    public function set_parent_span_id(string $spanID): void
+    {
+        $this->point->addFields([ 'parentSpanID' => $spanID ]);
+    }
+
+    /**
+     * Get span ID of the parent the event belongs to.
+     *
+     * @return string|null Parent span ID
+     */
+    public function get_parent_span_id(): ?string
+    {
+        return $this->point->getFields()['parentSpanID'] ?? NULL;
+    }
+
+    /**
+     * Set a UUID value.
+     *
+     * @param string $key  Name for the UUID value
+     * @param string $uuid The UUID to set
+     *
+     * @return void
+     */
+    public function set_uuid_value(string $key, string $value): void
+    {
+        $this->point->addFields([ $key => $value ]);
+    }
+
+    /**
      * Set indexed metadata.
      *
      * This clears all previously set values and replaces them.
