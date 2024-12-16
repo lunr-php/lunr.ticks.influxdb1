@@ -158,9 +158,9 @@ class Event implements EventInterface
      *
      * @return void
      */
-    public function set_uuid_value(string $key, string $value): void
+    public function set_uuid_value(string $key, string $uuid): void
     {
-        $this->point->addFields([ $key => $value ]);
+        $this->point->addFields([ $key => $uuid ]);
     }
 
     /**
