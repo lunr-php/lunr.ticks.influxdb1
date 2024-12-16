@@ -17,6 +17,9 @@
         <testsuite name="EventLogging">
             <directory>../src/Lunr/Ticks/InfluxDB1/EventLogging/Tests/</directory>
         </testsuite>
+        <testsuite name="Profiling">
+            <directory>../src/Lunr/Ticks/InfluxDB1/Profiling/Tests/</directory>
+        </testsuite>
     </testsuites>
     <coverage>
         <include>
@@ -24,6 +27,7 @@
         </include>
         <exclude>
             <directory>../src/Lunr/Ticks/InfluxDB1/EventLogging/Tests/</directory>
+            <directory>../src/Lunr/Ticks/InfluxDB1/Profiling/Tests/</directory>
         </exclude>
         <report>
             <clover outputFile="../build/logs/clover.xml"/>
