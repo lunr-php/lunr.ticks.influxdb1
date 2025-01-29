@@ -14,7 +14,7 @@ namespace Lunr\Ticks\InfluxDB1\Profiling\Tests;
  *
  * @covers Lunr\Ticks\InfluxDB1\Profiling\Profiler
  */
-class ProfilerBaseTest extends ProfilerTest
+class ProfilerBaseTest extends ProfilerTestCase
 {
 
     /**
@@ -30,7 +30,7 @@ class ProfilerBaseTest extends ProfilerTest
      */
     public function testFieldsIsInitializedEmpty(): void
     {
-        $this->assertArrayEmpty($this->get_reflection_property_value('fields'));
+        $this->assertArrayEmpty($this->getReflectionPropertyValue('fields'));
     }
 
     /**
@@ -38,7 +38,7 @@ class ProfilerBaseTest extends ProfilerTest
      */
     public function testTagsIsInitializedEmpty(): void
     {
-        $this->assertArrayEmpty($this->get_reflection_property_value('tags'));
+        $this->assertArrayEmpty($this->getReflectionPropertyValue('tags'));
     }
 
     /**
@@ -46,7 +46,7 @@ class ProfilerBaseTest extends ProfilerTest
      */
     public function testSpansIsInitializedEmpty(): void
     {
-        $this->assertArrayEmpty($this->get_reflection_property_value('spans'));
+        $this->assertArrayEmpty($this->getReflectionPropertyValue('spans'));
     }
 
     /**

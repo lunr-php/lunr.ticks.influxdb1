@@ -16,7 +16,7 @@ use Lunr\Ticks\Precision;
  *
  * @covers Lunr\Ticks\InfluxDB1\EventLogging\Event
  */
-class EventRecordTest extends EventTest
+class EventRecordTest extends EventTestCase
 {
 
     /**

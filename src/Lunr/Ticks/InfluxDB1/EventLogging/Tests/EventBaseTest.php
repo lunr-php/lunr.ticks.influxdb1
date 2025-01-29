@@ -14,7 +14,7 @@ namespace Lunr\Ticks\InfluxDB1\EventLogging\Tests;
  *
  * @covers Lunr\Ticks\InfluxDB1\EventLogging\Event
  */
-class EventBaseTest extends EventTest
+class EventBaseTest extends EventTestCase
 {
 
     /**

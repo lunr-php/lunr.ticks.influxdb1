@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file contains the EventLoggerTest class.
+ * This file contains the EventLoggerTestCase class.
  *
  * SPDX-FileCopyrightText: Copyright 2024 Move Agency Group B.V., Zwolle, The Netherlands
  * SPDX-License-Identifier: MIT
@@ -10,7 +10,7 @@
 namespace Lunr\Ticks\InfluxDB1\EventLogging\Tests;
 
 use InfluxDB\Client;
-use Lunr\Halo\LunrBaseTest;
+use Lunr\Halo\LunrBaseTestCase;
 use Lunr\Ticks\InfluxDB1\EventLogging\EventLogger;
 use Psr\Log\LoggerInterface;
 
@@ -20,7 +20,7 @@ use Psr\Log\LoggerInterface;
  *
  * @covers Lunr\Ticks\InfluxDB1\EventLogging\EventLogger
  */
-abstract class EventLoggerTest extends LunrBaseTest
+abstract class EventLoggerTestCase extends LunrBaseTestCase
 {
 
     /**

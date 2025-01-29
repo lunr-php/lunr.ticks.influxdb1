@@ -17,7 +17,7 @@ use RuntimeException;
  *
  * @covers Lunr\Ticks\InfluxDB1\EventLogging\Event
  */
-class EventSetTest extends EventTest
+class EventSetTest extends EventTestCase
 {
 
     /**

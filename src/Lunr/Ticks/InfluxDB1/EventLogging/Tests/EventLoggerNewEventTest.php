@@ -18,7 +18,7 @@ use ReflectionClass;
  *
  * @covers Lunr\Ticks\InfluxDB1\EventLogging\EventLogger
  */
-class EventLoggerNewEventTest extends EventLoggerTest
+class EventLoggerNewEventTest extends EventLoggerTestCase
 {
 
     /**

@@ -20,7 +20,7 @@ use Lunr\Ticks\Precision;
  *
  * @covers Lunr\Ticks\InfluxDB1\EventLogging\EventLogger
  */
-class EventLoggerRecordTest extends EventLoggerTest
+class EventLoggerRecordTest extends EventLoggerTestCase
 {
 
     /**
@@ -30,7 +30,7 @@ class EventLoggerRecordTest extends EventLoggerTest
      */
     public function testRecordWithDefaultRetentionPolicy(): void
     {
-        $this->set_reflection_property_value('database', 'test');
+        $this->setReflectionPropertyValue('database', 'test');
 
         $point = $this->getMockBuilder(Point::class)
                       ->disableOriginalConstructor()
@@ -67,7 +67,7 @@ class EventLoggerRecordTest extends EventLoggerTest
      */
     public function testRecordWithCustomRetentionPolicy(): void
     {
-        $this->set_reflection_property_value('database', 'test');
+        $this->setReflectionPropertyValue('database', 'test');
 
         $point = $this->getMockBuilder(Point::class)
                       ->disableOriginalConstructor()
@@ -104,7 +104,7 @@ class EventLoggerRecordTest extends EventLoggerTest
      */
     public function testRecordFails(): void
     {
-        $this->set_reflection_property_value('database', 'test');
+        $this->setReflectionPropertyValue('database', 'test');
 
         $point = $this->getMockBuilder(Point::class)
                       ->disableOriginalConstructor()

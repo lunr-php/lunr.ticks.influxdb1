@@ -16,7 +16,7 @@ use Lunr\Halo\PropertyTraits\PsrLoggerTestTrait;
  *
  * @covers Lunr\Ticks\InfluxDB1\EventLogging\EventLogger
  */
-class EventLoggerBaseTest extends EventLoggerTest
+class EventLoggerBaseTest extends EventLoggerTestCase
 {
 
     use PsrLoggerTestTrait;
