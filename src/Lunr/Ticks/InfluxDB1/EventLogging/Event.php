@@ -16,6 +16,9 @@ use RuntimeException;
 
 /**
  * Class for events.
+ *
+ * @phpstan-import-type Tags from EventInterface
+ * @phpstan-import-type Fields from EventInterface
  */
 class Event implements EventInterface
 {
@@ -168,7 +171,7 @@ class Event implements EventInterface
      *
      * This clears all previously set values and replaces them.
      *
-     * @param array<string,string|null> $tags Indexed metadata
+     * @param Tags $tags Indexed metadata
      *
      * @return void
      */
@@ -182,7 +185,7 @@ class Event implements EventInterface
      *
      * Set new values on top of previously set values.
      *
-     * @param array<string,string|null> $tags Indexed metadata
+     * @param Tags $tags Indexed metadata
      *
      * @return void
      */
@@ -193,6 +196,8 @@ class Event implements EventInterface
 
     /**
      * Get indexed metadata.
+     *
+     * influxdb-php will filter out NULL values, so those would never be returned.
      *
      * @return array<string,string> Indexed metadata
      */
@@ -206,7 +211,7 @@ class Event implements EventInterface
      *
      * This clears all previously set values and replaces them.
      *
-     * @param array<string,bool|float|int|string|null> $fields Unstructured metadata
+     * @param Fields $fields Unstructured metadata
      *
      * @return void
      */
@@ -220,7 +225,7 @@ class Event implements EventInterface
      *
      * Set new values on top of previously set values.
      *
-     * @param array<string,bool|float|int|string|null> $fields Unstructured metadata
+     * @param Fields $fields Unstructured metadata
      *
      * @return void
      */
@@ -232,7 +237,9 @@ class Event implements EventInterface
     /**
      * Get unstructured metadata.
      *
-     * @return array<string,bool|float|int|string> Unstructured metadata
+     * influxdb-php will filter out NULL values, so those would never be returned.
+     *
+     * @return array<string,scalar> Unstructured metadata
      */
     public function get_fields(): array
     {
