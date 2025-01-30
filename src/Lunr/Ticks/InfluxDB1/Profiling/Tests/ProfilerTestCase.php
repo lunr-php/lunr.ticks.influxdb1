@@ -57,7 +57,7 @@ abstract class ProfilerTestCase extends LunrBaseTestCase
                             ->getMock();
 
         $eventlogger->expects($this->once())
-                    ->method('new_event')
+                    ->method('newEvent')
                     ->with('foo', '3m')
                     ->willReturn($this->event);
 

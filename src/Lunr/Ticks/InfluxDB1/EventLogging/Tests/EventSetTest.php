@@ -40,9 +40,9 @@ class EventSetTest extends EventTestCase
     }
 
     /**
-     * Test that set_name() sets the measurement name.
+     * Test that setName() sets the measurement name.
      *
-     * @covers Lunr\Ticks\InfluxDB1\EventLogging\Event::set_name
+     * @covers Lunr\Ticks\InfluxDB1\EventLogging\Event::setName
      */
     public function testSetName(): void
     {
@@ -50,13 +50,13 @@ class EventSetTest extends EventTestCase
                     ->method('setMeasurement')
                     ->with('event');
 
-        $this->class->set_name('event');
+        $this->class->setName('event');
     }
 
     /**
-     * Test that set_trace_id() sets the Trace ID.
+     * Test that setTraceId() sets the Trace ID.
      *
-     * @covers Lunr\Ticks\InfluxDB1\EventLogging\Event::set_trace_id
+     * @covers Lunr\Ticks\InfluxDB1\EventLogging\Event::setTraceId
      */
     public function testSetTraceId(): void
     {
@@ -64,13 +64,13 @@ class EventSetTest extends EventTestCase
                     ->method('addFields')
                     ->with([ 'traceID' => '4e122973-b870-471a-a00e-6a2778244738' ]);
 
-        $this->class->set_trace_id('4e122973-b870-471a-a00e-6a2778244738');
+        $this->class->setTraceId('4e122973-b870-471a-a00e-6a2778244738');
     }
 
     /**
-     * Test that set_span_id() sets the Span ID.
+     * Test that setSpanId() sets the Span ID.
      *
-     * @covers Lunr\Ticks\InfluxDB1\EventLogging\Event::set_span_id
+     * @covers Lunr\Ticks\InfluxDB1\EventLogging\Event::setSpanId
      */
     public function testSetSpanId(): void
     {
@@ -78,13 +78,13 @@ class EventSetTest extends EventTestCase
                     ->method('addFields')
                     ->with([ 'spanID' => '4e122973-b870-471a-a00e-6a2778244738' ]);
 
-        $this->class->set_span_id('4e122973-b870-471a-a00e-6a2778244738');
+        $this->class->setSpanId('4e122973-b870-471a-a00e-6a2778244738');
     }
 
     /**
-     * Test that set_parent_span_id() sets the Span ID of the parent.
+     * Test that setParentSpanId() sets the Span ID of the parent.
      *
-     * @covers Lunr\Ticks\InfluxDB1\EventLogging\Event::set_parent_span_id
+     * @covers Lunr\Ticks\InfluxDB1\EventLogging\Event::setParentSpanId
      */
     public function testSetParentSpanId(): void
     {
@@ -92,13 +92,13 @@ class EventSetTest extends EventTestCase
                     ->method('addFields')
                     ->with([ 'parentSpanID' => '4e122973-b870-471a-a00e-6a2778244738' ]);
 
-        $this->class->set_parent_span_id('4e122973-b870-471a-a00e-6a2778244738');
+        $this->class->setParentSpanId('4e122973-b870-471a-a00e-6a2778244738');
     }
 
     /**
-     * Test that set_uuid_value() sets a UUID value.
+     * Test that setUuidValue() sets a UUID value.
      *
-     * @covers Lunr\Ticks\InfluxDB1\EventLogging\Event::set_uuid_value
+     * @covers Lunr\Ticks\InfluxDB1\EventLogging\Event::setUuidValue
      */
     public function testSetUuidValue(): void
     {
@@ -106,13 +106,13 @@ class EventSetTest extends EventTestCase
                     ->method('addFields')
                     ->with([ 'contentID' => '4e122973-b870-471a-a00e-6a2778244738' ]);
 
-        $this->class->set_uuid_value('contentID', '4e122973-b870-471a-a00e-6a2778244738');
+        $this->class->setUuidValue('contentID', '4e122973-b870-471a-a00e-6a2778244738');
     }
 
     /**
-     * Test that set_tags() sets the event tags.
+     * Test that setTags() sets the event tags.
      *
-     * @covers Lunr\Ticks\InfluxDB1\EventLogging\Event::set_tags
+     * @covers Lunr\Ticks\InfluxDB1\EventLogging\Event::setTags
      */
     public function testSetTags(): void
     {
@@ -122,13 +122,13 @@ class EventSetTest extends EventTestCase
                     ->method('setTags')
                     ->with($tags);
 
-        $this->class->set_tags($tags);
+        $this->class->setTags($tags);
     }
 
     /**
-     * Test that add_tags() adds event tags.
+     * Test that addTags() adds event tags.
      *
-     * @covers Lunr\Ticks\InfluxDB1\EventLogging\Event::add_tags
+     * @covers Lunr\Ticks\InfluxDB1\EventLogging\Event::addTags
      */
     public function testAddTags(): void
     {
@@ -138,13 +138,13 @@ class EventSetTest extends EventTestCase
                     ->method('addTags')
                     ->with($tags);
 
-        $this->class->add_tags($tags);
+        $this->class->addTags($tags);
     }
 
     /**
-     * Test that set_fields() sets the event fields.
+     * Test that setFields() sets the event fields.
      *
-     * @covers Lunr\Ticks\InfluxDB1\EventLogging\Event::set_fields
+     * @covers Lunr\Ticks\InfluxDB1\EventLogging\Event::setFields
      */
     public function testSetFields(): void
     {
@@ -154,13 +154,13 @@ class EventSetTest extends EventTestCase
                     ->method('setFields')
                     ->with($fields);
 
-        $this->class->set_fields($fields);
+        $this->class->setFields($fields);
     }
 
     /**
-     * Test that add_fields() adds event fields.
+     * Test that addFields() adds event fields.
      *
-     * @covers Lunr\Ticks\InfluxDB1\EventLogging\Event::add_fields
+     * @covers Lunr\Ticks\InfluxDB1\EventLogging\Event::addFields
      */
     public function testAddFields(): void
     {
@@ -170,13 +170,13 @@ class EventSetTest extends EventTestCase
                     ->method('addFields')
                     ->with($fields);
 
-        $this->class->add_fields($fields);
+        $this->class->addFields($fields);
     }
 
     /**
-     * Test that set_timestamp() sets the event time.
+     * Test that setTimestamp() sets the event time.
      *
-     * @covers Lunr\Ticks\InfluxDB1\EventLogging\Event::set_timestamp
+     * @covers Lunr\Ticks\InfluxDB1\EventLogging\Event::setTimestamp
      */
     public function testSetTimestamp(): void
     {
@@ -184,17 +184,17 @@ class EventSetTest extends EventTestCase
                     ->method('setTimestamp')
                     ->with(1730723729);
 
-        $this->class->set_timestamp(1730723729);
+        $this->class->setTimestamp(1730723729);
     }
 
     /**
-     * Test that record_timestamp() records the current time for the event.
+     * Test that recordTimestamp() records the current time for the event.
      *
      * @param Precision $precision Event precision
      * @param int       $expected  Expected timestamp in the precision requested
      *
      * @dataProvider timestampProvider
-     * @covers       Lunr\Ticks\InfluxDB1\EventLogging\Event::record_timestamp
+     * @covers       Lunr\Ticks\InfluxDB1\EventLogging\Event::recordTimestamp
      */
     public function testRecordTimestamp(Precision $precision, int $expected): void
     {
@@ -206,7 +206,7 @@ class EventSetTest extends EventTestCase
                     ->method('setTimestamp')
                     ->with($expected);
 
-        $this->class->record_timestamp($precision);
+        $this->class->recordTimestamp($precision);
 
         $this->unmock_function('time');
         $this->unmock_function('microtime');
@@ -214,9 +214,9 @@ class EventSetTest extends EventTestCase
     }
 
     /**
-     * Test that record_timestamp() throws an exception when recording nanoseconds failed.
+     * Test that recordTimestamp() throws an exception when recording nanoseconds failed.
      *
-     * @covers Lunr\Ticks\InfluxDB1\EventLogging\Event::record_timestamp
+     * @covers Lunr\Ticks\InfluxDB1\EventLogging\Event::recordTimestamp
      */
     public function testRecordTimestampFailsWithNanoSecondPrecision(): void
     {
@@ -228,7 +228,7 @@ class EventSetTest extends EventTestCase
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('Could not record timestamp with nanosecond precision!');
 
-        $this->class->record_timestamp(Precision::NanoSeconds);
+        $this->class->recordTimestamp(Precision::NanoSeconds);
 
         $this->unmock_function('exec');
     }

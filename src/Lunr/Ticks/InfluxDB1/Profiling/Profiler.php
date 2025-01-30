@@ -27,7 +27,7 @@ class Profiler extends GenericProfiler
      */
     public function __construct(EventLogger $eventLogger, string $name, ?string $retentionPolicy = NULL)
     {
-        parent::__construct($eventLogger->new_event($name, $retentionPolicy));
+        parent::__construct($eventLogger->newEvent($name, $retentionPolicy));
     }
 
     /**

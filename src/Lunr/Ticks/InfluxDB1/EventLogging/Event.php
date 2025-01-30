@@ -70,7 +70,7 @@ class Event implements EventInterface
      *
      * @return void
      */
-    public function set_name(string $name): void
+    public function setName(string $name): void
     {
         $this->point->setMeasurement($name);
     }
@@ -80,7 +80,7 @@ class Event implements EventInterface
      *
      * @return string Event name
      */
-    public function get_name(): string
+    public function getName(): string
     {
         return $this->point->getMeasurement();
     }
@@ -92,7 +92,7 @@ class Event implements EventInterface
      *
      * @return void
      */
-    public function set_trace_id(string $traceID): void
+    public function setTraceId(string $traceID): void
     {
         // InfluxDB 1.x doesn't do well with UUID tag values, so we store this as a field
         $this->point->addFields([ 'traceID' => $traceID ]);
@@ -103,7 +103,7 @@ class Event implements EventInterface
      *
      * @return string|null Trace ID
      */
-    public function get_trace_id(): ?string
+    public function getTraceId(): ?string
     {
         return $this->point->getFields()['traceID'] ?? NULL;
     }
@@ -115,7 +115,7 @@ class Event implements EventInterface
      *
      * @return void
      */
-    public function set_span_id(string $spanID): void
+    public function setSpanId(string $spanID): void
     {
         // InfluxDB 1.x doesn't do well with UUID tag values, so we store this as a field
         $this->point->addFields([ 'spanID' => $spanID ]);
@@ -126,7 +126,7 @@ class Event implements EventInterface
      *
      * @return string|null Span ID
      */
-    public function get_span_id(): ?string
+    public function getSpanId(): ?string
     {
         return $this->point->getFields()['spanID'] ?? NULL;
     }
@@ -138,7 +138,7 @@ class Event implements EventInterface
      *
      * @return void
      */
-    public function set_parent_span_id(string $spanID): void
+    public function setParentSpanId(string $spanID): void
     {
         $this->point->addFields([ 'parentSpanID' => $spanID ]);
     }
@@ -148,7 +148,7 @@ class Event implements EventInterface
      *
      * @return string|null Parent span ID
      */
-    public function get_parent_span_id(): ?string
+    public function getParentSpanId(): ?string
     {
         return $this->point->getFields()['parentSpanID'] ?? NULL;
     }
@@ -161,7 +161,7 @@ class Event implements EventInterface
      *
      * @return void
      */
-    public function set_uuid_value(string $key, string $uuid): void
+    public function setUuidValue(string $key, string $uuid): void
     {
         $this->point->addFields([ $key => $uuid ]);
     }
@@ -175,7 +175,7 @@ class Event implements EventInterface
      *
      * @return void
      */
-    public function set_tags(array $tags): void
+    public function setTags(array $tags): void
     {
         $this->point->setTags($tags);
     }
@@ -189,7 +189,7 @@ class Event implements EventInterface
      *
      * @return void
      */
-    public function add_tags(array $tags): void
+    public function addTags(array $tags): void
     {
         $this->point->addTags($tags);
     }
@@ -201,7 +201,7 @@ class Event implements EventInterface
      *
      * @return array<string,string> Indexed metadata
      */
-    public function get_tags(): array
+    public function getTags(): array
     {
         return $this->point->getTags();
     }
@@ -215,7 +215,7 @@ class Event implements EventInterface
      *
      * @return void
      */
-    public function set_fields(array $fields): void
+    public function setFields(array $fields): void
     {
         $this->point->setFields($fields);
     }
@@ -229,7 +229,7 @@ class Event implements EventInterface
      *
      * @return void
      */
-    public function add_fields(array $fields): void
+    public function addFields(array $fields): void
     {
         $this->point->addFields($fields);
     }
@@ -241,7 +241,7 @@ class Event implements EventInterface
      *
      * @return array<string,scalar> Unstructured metadata
      */
-    public function get_fields(): array
+    public function getFields(): array
     {
         return $this->point->getFields();
     }
@@ -253,7 +253,7 @@ class Event implements EventInterface
      *
      * @return void
      */
-    public function record_timestamp(Precision $precision = Precision::NanoSeconds): void
+    public function recordTimestamp(Precision $precision = Precision::NanoSeconds): void
     {
         switch ($precision)
         {
@@ -294,7 +294,7 @@ class Event implements EventInterface
      *
      * @return void
      */
-    public function set_timestamp(int|string $timestamp): void
+    public function setTimestamp(int|string $timestamp): void
     {
         $this->point->setTimestamp((string) $timestamp);
     }
@@ -304,7 +304,7 @@ class Event implements EventInterface
      *
      * @return int|string Timestamp
      */
-    public function get_timestamp(): int|string
+    public function getTimestamp(): int|string
     {
         return $this->point->getTimestamp();
     }

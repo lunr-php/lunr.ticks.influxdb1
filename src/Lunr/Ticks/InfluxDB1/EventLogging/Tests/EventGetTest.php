@@ -18,9 +18,9 @@ class EventGetTest extends EventTestCase
 {
 
     /**
-     * Test that get_name() gets the measurement name.
+     * Test that getName() gets the measurement name.
      *
-     * @covers Lunr\Ticks\InfluxDB1\EventLogging\Event::get_name
+     * @covers Lunr\Ticks\InfluxDB1\EventLogging\Event::getName
      */
     public function testGetName(): void
     {
@@ -30,15 +30,15 @@ class EventGetTest extends EventTestCase
                     ->method('getMeasurement')
                     ->willReturn($expected);
 
-        $value = $this->class->get_name();
+        $value = $this->class->getName();
 
         $this->assertSame($expected, $value);
     }
 
     /**
-     * Test that get_trace_id() gets the Trace ID.
+     * Test that getTraceId() gets the Trace ID.
      *
-     * @covers Lunr\Ticks\InfluxDB1\EventLogging\Event::get_trace_id
+     * @covers Lunr\Ticks\InfluxDB1\EventLogging\Event::getTraceId
      */
     public function testGetTraceId(): void
     {
@@ -52,15 +52,15 @@ class EventGetTest extends EventTestCase
                         'baz'     => '100',
                     ]);
 
-        $value = $this->class->get_trace_id();
+        $value = $this->class->getTraceId();
 
         $this->assertSame($expected, $value);
     }
 
     /**
-     * Test that get_span_id() gets the Span ID.
+     * Test that getSpanId() gets the Span ID.
      *
-     * @covers Lunr\Ticks\InfluxDB1\EventLogging\Event::get_span_id
+     * @covers Lunr\Ticks\InfluxDB1\EventLogging\Event::getSpanId
      */
     public function testGetSpanId(): void
     {
@@ -74,15 +74,15 @@ class EventGetTest extends EventTestCase
                         'baz'     => 100,
                     ]);
 
-        $value = $this->class->get_span_id();
+        $value = $this->class->getSpanId();
 
         $this->assertSame($expected, $value);
     }
 
     /**
-     * Test that get_parent_span_id() gets the Span ID of the parent.
+     * Test that getParentSpanId() gets the Span ID of the parent.
      *
-     * @covers Lunr\Ticks\InfluxDB1\EventLogging\Event::get_parent_span_id
+     * @covers Lunr\Ticks\InfluxDB1\EventLogging\Event::getParentSpanId
      */
     public function testGetParentSpanId(): void
     {
@@ -96,15 +96,15 @@ class EventGetTest extends EventTestCase
                         'baz'          => 100,
                     ]);
 
-        $value = $this->class->get_parent_span_id();
+        $value = $this->class->getParentSpanId();
 
         $this->assertSame($expected, $value);
     }
 
     /**
-     * Test that get_tags() gets the event tags.
+     * Test that getTags() gets the event tags.
      *
-     * @covers Lunr\Ticks\InfluxDB1\EventLogging\Event::get_tags
+     * @covers Lunr\Ticks\InfluxDB1\EventLogging\Event::getTags
      */
     public function testGetTags(): void
     {
@@ -117,15 +117,15 @@ class EventGetTest extends EventTestCase
                     ->method('getTags')
                     ->willReturn($expected);
 
-        $value = $this->class->get_tags();
+        $value = $this->class->getTags();
 
         $this->assertSame($expected, $value);
     }
 
     /**
-     * Test that get_fields() gets the event fields.
+     * Test that getFields() gets the event fields.
      *
-     * @covers Lunr\Ticks\InfluxDB1\EventLogging\Event::get_fields
+     * @covers Lunr\Ticks\InfluxDB1\EventLogging\Event::getFields
      */
     public function testGetFields(): void
     {
@@ -138,15 +138,15 @@ class EventGetTest extends EventTestCase
                     ->method('getFields')
                     ->willReturn($expected);
 
-        $value = $this->class->get_fields();
+        $value = $this->class->getFields();
 
         $this->assertSame($expected, $value);
     }
 
     /**
-     * Test that get_timestamp() gets the event timestamp.
+     * Test that getTimestamp() gets the event timestamp.
      *
-     * @covers Lunr\Ticks\InfluxDB1\EventLogging\Event::get_timestamp
+     * @covers Lunr\Ticks\InfluxDB1\EventLogging\Event::getTimestamp
      */
     public function testGetTimestamp(): void
     {
@@ -156,7 +156,7 @@ class EventGetTest extends EventTestCase
                     ->method('getTimestamp')
                     ->willReturn($expected);
 
-        $value = $this->class->get_timestamp();
+        $value = $this->class->getTimestamp();
 
         $this->assertSame($expected, $value);
     }

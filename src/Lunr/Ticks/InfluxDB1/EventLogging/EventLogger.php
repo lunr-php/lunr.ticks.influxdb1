@@ -49,15 +49,15 @@ class EventLogger implements EventLoggerInterface
     /**
      * Constructor.
      *
-     * @param Client               $client       Instance of the InfluxDB Client class
-     * @param LoggerInterface      $logger       Instance of a PSR-3 Logger
-     * @param array<string,string> $default_tags Default tags to use for all events
+     * @param Client               $client      Instance of the InfluxDB Client class
+     * @param LoggerInterface      $logger      Instance of a PSR-3 Logger
+     * @param array<string,string> $defaultTags Default tags to use for all events
      */
-    public function __construct(Client $client, LoggerInterface $logger, array $default_tags = [])
+    public function __construct(Client $client, LoggerInterface $logger, array $defaultTags = [])
     {
         $this->client      = $client;
         $this->logger      = $logger;
-        $this->defaultTags = $default_tags;
+        $this->defaultTags = $defaultTags;
         $this->database    = '';
     }
 
@@ -77,7 +77,7 @@ class EventLogger implements EventLoggerInterface
      *
      * @return Event Instance of a new Event
      */
-    public function new_event(string $name, ?string $retentionPolicy = NULL): Event
+    public function newEvent(string $name, ?string $retentionPolicy = NULL): Event
     {
         return new Event(
             $this,
@@ -96,7 +96,7 @@ class EventLogger implements EventLoggerInterface
      *
      * @return void
      */
-    public function set_database(string $database): void
+    public function setDatabase(string $database): void
     {
         $this->database = $database;
     }

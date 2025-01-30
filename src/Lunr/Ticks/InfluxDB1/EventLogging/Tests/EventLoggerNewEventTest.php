@@ -22,13 +22,13 @@ class EventLoggerNewEventTest extends EventLoggerTestCase
 {
 
     /**
-     * Test that new_event() returns an Event instance with default retention policy.
+     * Test that newEvent() returns an Event instance with default retention policy.
      *
-     * @covers Lunr\Ticks\InfluxDB1\EventLogging\EventLogger::new_event
+     * @covers Lunr\Ticks\InfluxDB1\EventLogging\EventLogger::newEvent
      */
     public function testNewEventWithDefaultRetentionPolicy(): void
     {
-        $event = $this->class->new_event('event');
+        $event = $this->class->newEvent('event');
 
         $this->assertInstanceOf(Event::class, $event);
 
@@ -63,13 +63,13 @@ class EventLoggerNewEventTest extends EventLoggerTestCase
     }
 
     /**
-     * Test that new_event() returns an Event instance with custom retention policy.
+     * Test that newEvent() returns an Event instance with custom retention policy.
      *
-     * @covers Lunr\Ticks\InfluxDB1\EventLogging\EventLogger::new_event
+     * @covers Lunr\Ticks\InfluxDB1\EventLogging\EventLogger::newEvent
      */
     public function testNewEventWithCustomRetentionPolicy(): void
     {
-        $event = $this->class->new_event('event', '7d');
+        $event = $this->class->newEvent('event', '7d');
 
         $this->assertInstanceOf(Event::class, $event);
 

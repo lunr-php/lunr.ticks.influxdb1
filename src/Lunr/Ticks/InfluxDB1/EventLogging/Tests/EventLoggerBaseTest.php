@@ -46,13 +46,13 @@ class EventLoggerBaseTest extends EventLoggerTestCase
     }
 
     /**
-     * Test that set_database() sets a database name.
+     * Test that setDatabase() sets a database name.
      *
-     * @covers Lunr\Ticks\InfluxDB1\EventLogging\EventLogger::set_database
+     * @covers Lunr\Ticks\InfluxDB1\EventLogging\EventLogger::setDatabase
      */
     public function testSetDatabase(): void
     {
-        $this->class->set_database('test');
+        $this->class->setDatabase('test');
 
         $this->assertPropertySame('database', 'test');
     }
