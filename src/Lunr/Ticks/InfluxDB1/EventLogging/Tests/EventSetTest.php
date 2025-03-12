@@ -25,7 +25,7 @@ class EventSetTest extends EventTestCase
      *
      * @return array<string, array{0: Precision, 1: int|float}>
      */
-    public function timestampProvider(): array
+    public static function timestampProvider(): array
     {
         $data = [];
 
