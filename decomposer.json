@@ -2,16 +2,15 @@
     "Lunr.Halo": {
         "url": "https://github.com/lunr-php/lunr.halo.git",
         "version": "0.11.0",
-        "revision": "master",
         "psr4": {
             "prefix": "Lunr\\Halo",
             "search-path": "/src/Lunr/Halo/"
-        }
+        },
+        "development-only": true
     },
     "Lunr.Ticks": {
         "url": "https://github.com/lunr-php/lunr.ticks.git",
         "version": "0.11.0",
-        "revision": "master",
         "psr4": {
             "prefix": "Lunr\\Ticks",
             "search-path": "/src/Lunr/Ticks/"
@@ -28,7 +27,6 @@
     "influxdb-php": {
         "url": "https://github.com/m2mobi/influxdb-php.git",
         "version": "1.16.1",
-        "revision": "master",
         "psr4": {
             "prefix": "InfluxDB",
             "search-path": "/src/InfluxDB/"
