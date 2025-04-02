@@ -41,6 +41,12 @@ class EventLogger implements EventLoggerInterface
     protected string $database;
 
     /**
+     * Retention policy to apply
+     * @var string|null
+     */
+    protected ?string $retentionPolicy;
+
+    /**
      * Default tags to use for all events.
      * @var array<string,string>
      */
@@ -55,10 +61,11 @@ class EventLogger implements EventLoggerInterface
      */
     public function __construct(Client $client, LoggerInterface $logger, array $defaultTags = [])
     {
-        $this->client      = $client;
-        $this->logger      = $logger;
-        $this->defaultTags = $defaultTags;
-        $this->database    = '';
+        $this->client          = $client;
+        $this->logger          = $logger;
+        $this->defaultTags     = $defaultTags;
+        $this->database        = '';
+        $this->retentionPolicy = NULL;
     }
 
     /**
@@ -67,17 +74,17 @@ class EventLogger implements EventLoggerInterface
     public function __destruct()
     {
         unset($this->database);
+        unset($this->retentionPolicy);
     }
 
     /**
      * Get an instance of a new event
      *
-     * @param string      $name            Event name
-     * @param string|null $retentionPolicy Retention policy for the event
+     * @param string $name Event name
      *
      * @return Event Instance of a new Event
      */
-    public function newEvent(string $name, ?string $retentionPolicy = NULL): Event
+    public function newEvent(string $name): Event
     {
         return new Event(
             $this,
@@ -85,7 +92,6 @@ class EventLogger implements EventLoggerInterface
                 measurement: $name,
                 tags: $this->defaultTags,
             ),
-            $retentionPolicy,
         );
     }
 
@@ -102,15 +108,26 @@ class EventLogger implements EventLoggerInterface
     }
 
     /**
-     * Log a single event.
+     * Set a retention policy for the analytics data.
      *
-     * @param Point       $event           Event to log
-     * @param Precision   $precision       Timestamp precision to use for the event
-     * @param string|null $retentionPolicy Retention policy for the event
+     * @param string $retentionPolicy Name of the policy for how long to retain the analytics data
      *
      * @return void
      */
-    public function record(Point $event, Precision $precision, ?string $retentionPolicy = NULL): void
+    public function setRetentionPolicy(string $retentionPolicy): void
+    {
+        $this->retentionPolicy = $retentionPolicy;
+    }
+
+    /**
+     * Log a single event.
+     *
+     * @param Point     $event     Event to log
+     * @param Precision $precision Timestamp precision to use for the event
+     *
+     * @return void
+     */
+    public function record(Point $event, Precision $precision): void
     {
         $client_precision = $this->client->getPrecision();
 
@@ -126,7 +143,7 @@ class EventLogger implements EventLoggerInterface
 
         try
         {
-            $this->client->selectDB($this->database)->writePoints([ $event ], $influxdb_precision, $retentionPolicy);
+            $this->client->selectDB($this->database)->writePoints([ $event ], $influxdb_precision, $this->retentionPolicy);
         }
         catch (InfluxDBException $e)
         {

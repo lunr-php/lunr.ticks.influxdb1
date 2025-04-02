@@ -67,7 +67,7 @@ abstract class ProfilerTestCase extends LunrBaseTestCase
 
         $eventlogger->expects($this->once())
                     ->method('newEvent')
-                    ->with('foo', '3m')
+                    ->with('foo')
                     ->willReturn($this->event);
 
         $this->controller = $this->createMockForIntersectionOfInterfaces(
@@ -82,7 +82,7 @@ abstract class ProfilerTestCase extends LunrBaseTestCase
 
         $this->mockFunction('microtime', fn(bool $float) => $float ? $floatval : $stringval);
 
-        $this->class = new Profiler($eventlogger, $this->controller, 'foo', '3m');
+        $this->class = new Profiler($eventlogger, $this->controller, 'foo');
 
         // Unmock here instead of tearDown() because we have another microtime call in the record()
         // method that needs a different mock.
