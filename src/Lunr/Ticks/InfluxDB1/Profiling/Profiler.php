@@ -23,19 +23,17 @@ class Profiler extends GenericProfiler
     /**
      * Constructor.
      *
-     * @param EventLogger                                     $eventLogger     An observability event logger
-     * @param TracingControllerInterface&TracingInfoInterface $controller      A tracing controller.
-     * @param string                                          $name            Event name
-     * @param string|null                                     $retentionPolicy Retention policy for the event
+     * @param EventLogger                                     $eventLogger An observability event logger
+     * @param TracingControllerInterface&TracingInfoInterface $controller  A tracing controller.
+     * @param string                                          $name        Event name
      */
     public function __construct(
         EventLogger $eventLogger,
         TracingControllerInterface&TracingInfoInterface $controller,
         string $name,
-        ?string $retentionPolicy = NULL,
     )
     {
-        parent::__construct($eventLogger->newEvent($name, $retentionPolicy), $controller);
+        parent::__construct($eventLogger->newEvent($name), $controller);
     }
 
     /**

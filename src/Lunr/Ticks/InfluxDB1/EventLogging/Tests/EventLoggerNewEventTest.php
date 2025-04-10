@@ -22,11 +22,11 @@ class EventLoggerNewEventTest extends EventLoggerTestCase
 {
 
     /**
-     * Test that newEvent() returns an Event instance with default retention policy.
+     * Test that newEvent() returns an Event instance.
      *
      * @covers Lunr\Ticks\InfluxDB1\EventLogging\EventLogger::newEvent
      */
-    public function testNewEventWithDefaultRetentionPolicy(): void
+    public function testNewEvent(): void
     {
         $event = $this->class->newEvent('event');
 
@@ -38,52 +38,6 @@ class EventLoggerNewEventTest extends EventLoggerTestCase
                                         ->getValue($event);
 
         $this->assertSame($this->class, $eventLogger);
-
-        $retentionPolicy = $event_reflection->getProperty('retentionPolicy')
-                                        ->getValue($event);
-
-        $this->assertNull($retentionPolicy);
-
-        $point = $event_reflection->getProperty('point')
-                                  ->getValue($event);
-
-        $this->assertInstanceOf(Point::class, $point);
-
-        $point_reflection = new ReflectionClass(Point::class);
-
-        $measurement = $point_reflection->getProperty('measurement')
-                                        ->getValue($point);
-
-        $this->assertSame('event', $measurement);
-
-        $defaultTags = $point_reflection->getProperty('tags')
-                                        ->getValue($point);
-
-        $this->assertSame($this->defaultTags, $defaultTags);
-    }
-
-    /**
-     * Test that newEvent() returns an Event instance with custom retention policy.
-     *
-     * @covers Lunr\Ticks\InfluxDB1\EventLogging\EventLogger::newEvent
-     */
-    public function testNewEventWithCustomRetentionPolicy(): void
-    {
-        $event = $this->class->newEvent('event', '7d');
-
-        $this->assertInstanceOf(Event::class, $event);
-
-        $event_reflection = new ReflectionClass(Event::class);
-
-        $eventLogger = $event_reflection->getProperty('eventLogger')
-                                        ->getValue($event);
-
-        $this->assertSame($this->class, $eventLogger);
-
-        $retentionPolicy = $event_reflection->getProperty('retentionPolicy')
-                                        ->getValue($event);
-
-        $this->assertSame('7d', $retentionPolicy);
 
         $point = $event_reflection->getProperty('point')
                                   ->getValue($event);

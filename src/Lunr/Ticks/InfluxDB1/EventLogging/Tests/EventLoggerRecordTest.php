@@ -24,11 +24,11 @@ class EventLoggerRecordTest extends EventLoggerTestCase
 {
 
     /**
-     * Test that record() logs an event with default retention policy.
+     * Test that record() logs an event.
      *
      * @covers Lunr\Ticks\InfluxDB1\EventLogging\EventLogger::record
      */
-    public function testRecordWithDefaultRetentionPolicy(): void
+    public function testRecordSucceeds(): void
     {
         $this->setReflectionPropertyValue('database', 'test');
 
@@ -58,43 +58,6 @@ class EventLoggerRecordTest extends EventLoggerTestCase
                  ->with([ $point ], InfluxDBV1Precision::PRECISION_NANOSECONDS, NULL);
 
         $this->class->record($point, Precision::NanoSeconds);
-    }
-
-    /**
-     * Test that record() logs an event with custom retention policy.
-     *
-     * @covers Lunr\Ticks\InfluxDB1\EventLogging\EventLogger::record
-     */
-    public function testRecordWithCustomRetentionPolicy(): void
-    {
-        $this->setReflectionPropertyValue('database', 'test');
-
-        $point = $this->getMockBuilder(Point::class)
-                      ->disableOriginalConstructor()
-                      ->getMock();
-
-        $precision = $this->getMockBuilder(InfluxDBV1Precision::class)
-                          ->disableOriginalConstructor()
-                          ->getMock();
-
-        $database = $this->getMockBuilder(Database::class)
-                         ->disableOriginalConstructor()
-                         ->getMock();
-
-        $this->client->expects($this->once())
-                     ->method('getPrecision')
-                     ->willReturn($precision);
-
-        $this->client->expects($this->once())
-                     ->method('selectDB')
-                     ->with('test')
-                     ->willReturn($database);
-
-        $database->expects($this->once())
-                 ->method('writePoints')
-                 ->with([ $point ], InfluxDBV1Precision::PRECISION_SECONDS, '7d');
-
-        $this->class->record($point, Precision::Seconds, '7d');
     }
 
     /**

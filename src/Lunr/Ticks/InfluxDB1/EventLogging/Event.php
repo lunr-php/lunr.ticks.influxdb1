@@ -36,23 +36,15 @@ class Event implements EventInterface
     protected readonly Point $point;
 
     /**
-     * Retention policy for the event.
-     * @var string|null
-     */
-    protected readonly ?string $retentionPolicy;
-
-    /**
      * Constructor.
      *
-     * @param EventLogger $eventLogger     Instance of the EventLogger that created the Event
-     * @param Point       $point           Non-shared InfluxDB1 Point object to hold the event data
-     * @param string|null $retentionPolicy Retention policy for the event
+     * @param EventLogger $eventLogger Instance of the EventLogger that created the Event
+     * @param Point       $point       Non-shared InfluxDB1 Point object to hold the event data
      */
-    public function __construct(EventLogger $eventLogger, Point $point, ?string $retentionPolicy)
+    public function __construct(EventLogger $eventLogger, Point $point)
     {
-        $this->eventLogger     = $eventLogger;
-        $this->point           = $point;
-        $this->retentionPolicy = $retentionPolicy;
+        $this->eventLogger = $eventLogger;
+        $this->point       = $point;
     }
 
     /**
@@ -318,7 +310,7 @@ class Event implements EventInterface
      */
     public function record($precision = Precision::NanoSeconds): void
     {
-        $this->eventLogger->record($this->point, $precision, $this->retentionPolicy);
+        $this->eventLogger->record($this->point, $precision);
     }
 
 }

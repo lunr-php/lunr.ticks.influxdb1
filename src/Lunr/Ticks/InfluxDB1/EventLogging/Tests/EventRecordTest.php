@@ -31,7 +31,6 @@ class EventRecordTest extends EventTestCase
                           ->with(
                               $this->point,
                               Precision::NanoSeconds,
-                              '7d',
                           );
 
         $this->class->record();
@@ -49,7 +48,6 @@ class EventRecordTest extends EventTestCase
                           ->with(
                               $this->point,
                               Precision::Seconds,
-                              '7d',
                           );
 
         $this->class->record(Precision::Seconds);

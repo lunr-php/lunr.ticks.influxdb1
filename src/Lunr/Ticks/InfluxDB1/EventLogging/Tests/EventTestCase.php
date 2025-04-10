@@ -56,7 +56,7 @@ abstract class EventTestCase extends LunrBaseTestCase
                                   ->disableOriginalConstructor()
                                   ->getMock();
 
-        $this->class = new Event($this->eventLogger, $this->point, '7d');
+        $this->class = new Event($this->eventLogger, $this->point);
 
         parent::baseSetUp($this->class);
     }

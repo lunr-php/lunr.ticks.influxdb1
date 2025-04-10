@@ -33,14 +33,6 @@ class EventBaseTest extends EventTestCase
         $this->assertPropertySame('point', $this->point);
     }
 
-    /**
-     * Test that the database is initialized as an empty string.
-     */
-    public function testRetentionPolicyIsPassedCorrectly(): void
-    {
-        $this->assertPropertySame('retentionPolicy', '7d');
-    }
-
 }
 
 ?>

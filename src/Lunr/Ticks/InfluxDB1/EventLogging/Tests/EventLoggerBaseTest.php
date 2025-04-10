@@ -46,6 +46,14 @@ class EventLoggerBaseTest extends EventLoggerTestCase
     }
 
     /**
+     * Test that the retention policy is initialized as NULL.
+     */
+    public function testRetentionPolicyIsNull(): void
+    {
+        $this->assertNull($this->getReflectionPropertyValue('retentionPolicy'));
+    }
+
+    /**
      * Test that setDatabase() sets a database name.
      *
      * @covers Lunr\Ticks\InfluxDB1\EventLogging\EventLogger::setDatabase
@@ -55,6 +63,18 @@ class EventLoggerBaseTest extends EventLoggerTestCase
         $this->class->setDatabase('test');
 
         $this->assertPropertySame('database', 'test');
+    }
+
+    /**
+     * Test setRetentionPolicy() overrides the default retention policy.
+     *
+     * @covers Lunr\Ticks\InfluxDB1\EventLogging\EventLogger::setRetentionPolicy
+     */
+    public function testSetRetentionPolicy(): void
+    {
+        $this->class->setRetentionPolicy('1-month');
+
+        $this->assertPropertyEquals('retentionPolicy', '1-month');
     }
 
 }
