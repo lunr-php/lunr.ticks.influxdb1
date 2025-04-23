@@ -308,7 +308,7 @@ class Event implements EventInterface
      *
      * @return void
      */
-    public function record($precision = Precision::NanoSeconds): void
+    public function record(Precision $precision = Precision::NanoSeconds): void
     {
         $this->eventLogger->record($this->point, $precision);
     }
