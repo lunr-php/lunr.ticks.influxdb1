@@ -32,27 +32,27 @@ class EventLoggerNewEventTest extends EventLoggerTestCase
 
         $this->assertInstanceOf(Event::class, $event);
 
-        $event_reflection = new ReflectionClass(Event::class);
+        $eventReflection = new ReflectionClass(Event::class);
 
-        $eventLogger = $event_reflection->getProperty('eventLogger')
-                                        ->getValue($event);
+        $eventLogger = $eventReflection->getProperty('eventLogger')
+                                       ->getValue($event);
 
         $this->assertSame($this->class, $eventLogger);
 
-        $point = $event_reflection->getProperty('point')
-                                  ->getValue($event);
+        $point = $eventReflection->getProperty('point')
+                                 ->getValue($event);
 
         $this->assertInstanceOf(Point::class, $point);
 
-        $point_reflection = new ReflectionClass(Point::class);
+        $pointReflection = new ReflectionClass(Point::class);
 
-        $measurement = $point_reflection->getProperty('measurement')
-                                        ->getValue($point);
+        $measurement = $pointReflection->getProperty('measurement')
+                                       ->getValue($point);
 
         $this->assertSame('event', $measurement);
 
-        $defaultTags = $point_reflection->getProperty('tags')
-                                        ->getValue($point);
+        $defaultTags = $pointReflection->getProperty('tags')
+                                       ->getValue($point);
 
         $this->assertSame($this->defaultTags, $defaultTags);
     }

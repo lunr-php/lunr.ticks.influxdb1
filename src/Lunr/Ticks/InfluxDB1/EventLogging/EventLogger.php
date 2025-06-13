@@ -129,21 +129,21 @@ class EventLogger implements EventLoggerInterface
      */
     public function record(Point $event, Precision $precision): void
     {
-        $client_precision = $this->client->getPrecision();
+        $clientPrecision = $this->client->getPrecision();
 
-        $influxdb_precision = match ($precision)
+        $influxdbPrecision = match ($precision)
         {
-            Precision::Hours => $client_precision::PRECISION_HOURS,
-            Precision::Minutes => $client_precision::PRECISION_MINUTES,
-            Precision::Seconds => $client_precision::PRECISION_SECONDS,
-            Precision::MilliSeconds => $client_precision::PRECISION_MILLISECONDS,
-            Precision::MicroSeconds => $client_precision::PRECISION_MICROSECONDS,
-            Precision::NanoSeconds => $client_precision::PRECISION_NANOSECONDS,
+            Precision::Hours => $clientPrecision::PRECISION_HOURS,
+            Precision::Minutes => $clientPrecision::PRECISION_MINUTES,
+            Precision::Seconds => $clientPrecision::PRECISION_SECONDS,
+            Precision::MilliSeconds => $clientPrecision::PRECISION_MILLISECONDS,
+            Precision::MicroSeconds => $clientPrecision::PRECISION_MICROSECONDS,
+            Precision::NanoSeconds => $clientPrecision::PRECISION_NANOSECONDS,
         };
 
         try
         {
-            $this->client->selectDB($this->database)->writePoints([ $event ], $influxdb_precision, $this->retentionPolicy);
+            $this->client->selectDB($this->database)->writePoints([ $event ], $influxdbPrecision, $this->retentionPolicy);
         }
         catch (InfluxDBException $e)
         {
