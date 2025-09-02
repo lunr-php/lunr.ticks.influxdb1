@@ -9,6 +9,8 @@
 
 namespace Lunr\Ticks\InfluxDB1\Profiling\Tests;
 
+use Lunr\Ticks\EventLogging\Null\NullEvent;
+use Lunr\Ticks\EventLogging\Null\NullEventLogger;
 use Lunr\Ticks\InfluxDB1\EventLogging\EventLogger;
 use Lunr\Ticks\InfluxDB1\Profiling\Profiler;
 use Lunr\Ticks\TracingControllerInterface;
@@ -98,6 +100,44 @@ class ProfilerBaseTest extends ProfilerTestCase
         $property = $this->getReflectionProperty('startTimestamp');
 
         $this->assertSame($startTimestamp, $property->getValue($class));
+    }
+
+    /**
+     * Test the profiler works correctly with a NullEventLogger.
+     */
+    public function testWithNullEventLogger(): void
+    {
+        $eventlogger = $this->getMockBuilder(NullEventLogger::class)
+                            ->disableOriginalConstructor()
+                            ->getMock();
+
+        $event = new NullEvent($eventlogger);
+
+        $eventlogger->expects($this->once())
+                    ->method('newEvent')
+                    ->with('foo')
+                    ->willReturn($event);
+
+        $controller = $this->createMockForIntersectionOfInterfaces(
+            [
+                TracingControllerInterface::class,
+                TracingInfoInterface::class,
+            ]
+        );
+
+        $controller->expects($this->once())
+                   ->method('getTraceId')
+                   ->willReturn('e0af2cd4-6a1c-4bd6-8fca-d3684e699784');
+
+        $controller->expects($this->once())
+                   ->method('getSpanId')
+                   ->willReturn('3f946299-16b5-44ee-8290-3f0fdbbbab1d');
+
+        $class = new Profiler($eventlogger, $controller, 'foo');
+
+        $property = $this->getReflectionProperty('event');
+
+        $this->assertSame($event, $property->getValue($class));
     }
 
 }

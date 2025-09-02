@@ -9,6 +9,7 @@
 
 namespace Lunr\Ticks\InfluxDB1\Profiling;
 
+use Lunr\Ticks\EventLogging\Null\NullEventLogger;
 use Lunr\Ticks\InfluxDB1\EventLogging\EventLogger;
 use Lunr\Ticks\Profiling\Profiler as GenericProfiler;
 use Lunr\Ticks\TracingControllerInterface;
@@ -23,13 +24,13 @@ class Profiler extends GenericProfiler
     /**
      * Constructor.
      *
-     * @param EventLogger                                     $eventLogger    An observability event logger
+     * @param EventLogger|NullEventLogger                     $eventLogger    An observability event logger
      * @param TracingControllerInterface&TracingInfoInterface $controller     A tracing controller.
      * @param string                                          $name           Event name
      * @param float|null                                      $startTimestamp Custom start timestamp (optional)
      */
     public function __construct(
-        EventLogger $eventLogger,
+        EventLogger|NullEventLogger $eventLogger,
         TracingControllerInterface&TracingInfoInterface $controller,
         string $name,
         ?float $startTimestamp = NULL,
