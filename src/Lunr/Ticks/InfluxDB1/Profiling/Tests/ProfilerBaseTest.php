@@ -9,6 +9,11 @@
 
 namespace Lunr\Ticks\InfluxDB1\Profiling\Tests;
 
+use Lunr\Ticks\InfluxDB1\EventLogging\EventLogger;
+use Lunr\Ticks\InfluxDB1\Profiling\Profiler;
+use Lunr\Ticks\TracingControllerInterface;
+use Lunr\Ticks\TracingInfoInterface;
+
 /**
  * This class contains tests for the Profiler class.
  *
@@ -55,6 +60,44 @@ class ProfilerBaseTest extends ProfilerTestCase
     public function testStartTimestampIsSet(): void
     {
         $this->assertPropertySame('startTimestamp', $this->startTimestamp);
+    }
+
+    /**
+     * Test that the start timestamp is set.
+     */
+    public function testCustomStartTimestampIsSet(): void
+    {
+        $eventlogger = $this->getMockBuilder(EventLogger::class)
+                            ->disableOriginalConstructor()
+                            ->getMock();
+
+        $eventlogger->expects($this->once())
+                    ->method('newEvent')
+                    ->with('foo')
+                    ->willReturn($this->event);
+
+        $startTimestamp = 1734352685.1645;
+
+        $controller = $this->createMockForIntersectionOfInterfaces(
+            [
+                TracingControllerInterface::class,
+                TracingInfoInterface::class,
+            ]
+        );
+
+        $controller->expects($this->once())
+                   ->method('getTraceId')
+                   ->willReturn('e0af2cd4-6a1c-4bd6-8fca-d3684e699784');
+
+        $controller->expects($this->once())
+                   ->method('getSpanId')
+                   ->willReturn('3f946299-16b5-44ee-8290-3f0fdbbbab1d');
+
+        $class = new Profiler($eventlogger, $controller, 'foo', $startTimestamp);
+
+        $property = $this->getReflectionProperty('startTimestamp');
+
+        $this->assertSame($startTimestamp, $property->getValue($class));
     }
 
 }
