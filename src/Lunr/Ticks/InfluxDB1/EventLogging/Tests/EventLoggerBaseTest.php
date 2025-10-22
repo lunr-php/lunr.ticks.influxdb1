@@ -38,22 +38,6 @@ class EventLoggerBaseTest extends EventLoggerTestCase
     }
 
     /**
-     * Test that the database is initialized as an empty string.
-     */
-    public function testDatabaseIsEmptyString(): void
-    {
-        $this->assertPropertySame('database', '');
-    }
-
-    /**
-     * Test that the retention policy is initialized as NULL.
-     */
-    public function testRetentionPolicyIsNull(): void
-    {
-        $this->assertNull($this->getReflectionPropertyValue('retentionPolicy'));
-    }
-
-    /**
      * Test that setDatabase() sets a database name.
      *
      * @covers Lunr\Ticks\InfluxDB1\EventLogging\EventLogger::setDatabase

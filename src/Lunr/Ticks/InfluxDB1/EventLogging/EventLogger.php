@@ -38,13 +38,13 @@ class EventLogger implements EventLoggerInterface
      * Name of the database
      * @var string
      */
-    protected string $database;
+    protected readonly string $database;
 
     /**
      * Retention policy to apply
-     * @var string|null
+     * @var string
      */
-    protected ?string $retentionPolicy;
+    protected readonly string $retentionPolicy;
 
     /**
      * Default tags to use for all events.
@@ -61,11 +61,9 @@ class EventLogger implements EventLoggerInterface
      */
     public function __construct(Client $client, LoggerInterface $logger, array $defaultTags = [])
     {
-        $this->client          = $client;
-        $this->logger          = $logger;
-        $this->defaultTags     = $defaultTags;
-        $this->database        = '';
-        $this->retentionPolicy = NULL;
+        $this->client      = $client;
+        $this->logger      = $logger;
+        $this->defaultTags = $defaultTags;
     }
 
     /**
@@ -73,8 +71,7 @@ class EventLogger implements EventLoggerInterface
      */
     public function __destruct()
     {
-        unset($this->database);
-        unset($this->retentionPolicy);
+        // no-op
     }
 
     /**
@@ -143,7 +140,7 @@ class EventLogger implements EventLoggerInterface
 
         try
         {
-            $this->client->selectDB($this->database)->writePoints([ $event ], $influxdbPrecision, $this->retentionPolicy);
+            $this->client->selectDB($this->database)->writePoints([ $event ], $influxdbPrecision, $this->retentionPolicy ?? NULL);
         }
         catch (InfluxDBException $e)
         {

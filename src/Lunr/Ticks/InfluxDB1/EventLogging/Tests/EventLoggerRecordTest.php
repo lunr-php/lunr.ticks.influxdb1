@@ -31,6 +31,44 @@ class EventLoggerRecordTest extends EventLoggerTestCase
     public function testRecordSucceeds(): void
     {
         $this->setReflectionPropertyValue('database', 'test');
+        $this->setReflectionPropertyValue('retentionPolicy', '1-month');
+
+        $point = $this->getMockBuilder(Point::class)
+                      ->disableOriginalConstructor()
+                      ->getMock();
+
+        $precision = $this->getMockBuilder(InfluxDBV1Precision::class)
+                          ->disableOriginalConstructor()
+                          ->getMock();
+
+        $database = $this->getMockBuilder(Database::class)
+                         ->disableOriginalConstructor()
+                         ->getMock();
+
+        $this->client->expects($this->once())
+                     ->method('getPrecision')
+                     ->willReturn($precision);
+
+        $this->client->expects($this->once())
+                     ->method('selectDB')
+                     ->with('test')
+                     ->willReturn($database);
+
+        $database->expects($this->once())
+                 ->method('writePoints')
+                 ->with([ $point ], InfluxDBV1Precision::PRECISION_NANOSECONDS, '1-month');
+
+        $this->class->record($point, Precision::NanoSeconds);
+    }
+
+    /**
+     * Test that record() logs an event.
+     *
+     * @covers Lunr\Ticks\InfluxDB1\EventLogging\EventLogger::record
+     */
+    public function testRecordSucceedsWithUnsetRetentionPolicy(): void
+    {
+        $this->setReflectionPropertyValue('database', 'test');
 
         $point = $this->getMockBuilder(Point::class)
                       ->disableOriginalConstructor()
