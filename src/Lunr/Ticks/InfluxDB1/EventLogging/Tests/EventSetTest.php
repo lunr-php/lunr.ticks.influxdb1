@@ -198,9 +198,9 @@ class EventSetTest extends EventTestCase
      */
     public function testRecordTimestamp(Precision $precision, int $expected): void
     {
-        $this->mock_function('time', fn() => 1730723729);
-        $this->mock_function('microtime', fn() => 1730723729.1613);
-        $this->mock_function('exec', fn() => 1730723729161388499);
+        $this->mockFunction('time', fn() => 1730723729);
+        $this->mockFunction('microtime', fn() => 1730723729.1613);
+        $this->mockFunction('exec', fn() => 1730723729161388499);
 
         $this->point->expects($this->once())
                     ->method('setTimestamp')
@@ -208,9 +208,9 @@ class EventSetTest extends EventTestCase
 
         $this->class->recordTimestamp($precision);
 
-        $this->unmock_function('time');
-        $this->unmock_function('microtime');
-        $this->unmock_function('exec');
+        $this->unmockFunction('time');
+        $this->unmockFunction('microtime');
+        $this->unmockFunction('exec');
     }
 
     /**
@@ -220,7 +220,7 @@ class EventSetTest extends EventTestCase
      */
     public function testRecordTimestampFailsWithNanoSecondPrecision(): void
     {
-        $this->mock_function('exec', fn() => FALSE);
+        $this->mockFunction('exec', fn() => FALSE);
 
         $this->point->expects($this->never())
                     ->method('setTimestamp');
@@ -230,7 +230,7 @@ class EventSetTest extends EventTestCase
 
         $this->class->recordTimestamp(Precision::NanoSeconds);
 
-        $this->unmock_function('exec');
+        $this->unmockFunction('exec');
     }
 
 }
